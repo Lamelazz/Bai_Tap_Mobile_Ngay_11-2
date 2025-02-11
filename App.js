@@ -1,20 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState }  from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-export default function App() {
+const App = () => {
+  const [backgroundColor, setBackgroundColor] = useState('green');
+
+  const colors = ['green', 'blue', 'brown', 'yellow', 'red', 'black'];
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={[styles.container, { backgroundColor }]}>
+      {colors.map((color) => (
+        <TouchableOpacity
+          key={color}
+          style={[styles.button, { backgroundColor: color }]}
+          onPress={() => setBackgroundColor(color)}
+        >
+          <Text style={styles.buttonText}>{color.toUpperCase()}</Text>
+        </TouchableOpacity>
+      ))}
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    padding: 15,
+    width: '80%',
+    marginVertical: 5,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
+
+export default App;
